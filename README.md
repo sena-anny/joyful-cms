@@ -1,27 +1,20 @@
-# NextJS Typescript Boilerplate
+# Joyful-CMS
 
-Bootstrap a developer-friendly NextJS app configured with:
+Joyful環境でのみ利用可能なCMSです。
 
-- [Typescript](https://www.typescriptlang.org/)
-- Linting with [ESLint](https://eslint.org/)
-- Formatting with [Prettier](https://prettier.io/)
-- Linting, typechecking and formatting on by default using [`husky`](https://github.com/typicode/husky) for commit hooks
-- Testing with [Jest](https://jestjs.io/) and [`react-testing-library`](https://testing-library.com/docs/react-testing-library/intro)
+以下の技術要素を使用
 
-## Deploy your own
+- [NextJs](https://nextjs.org/docs) / [Typescript](https://www.typescriptlang.org/) / [ESLint](https://eslint.org/) / [Prettier](https://prettier.io/) / [Jest](https://jestjs.io/) / [react-testing-library](https://testing-library.com/docs/react-testing-library/intro)
+[Firebase Auth](https://react-firebase-js.com/docs/react-firebase-auth/getting-started) / [React Bootstrap](https://react-bootstrap.github.io/)
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example):
+## デプロイ環境
+
+Deploy using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example):
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-typescript-eslint-jest&project-name=with-typescript-eslint-jest&repository-name=with-typescript-eslint-jest)
 
-## How to use
-
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init) or [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) to bootstrap the example:
+## 開発方法
 
 ```bash
-npx create-next-app --example with-typescript-eslint-jest with-typescript-eslint-jest-app
-# or
-yarn create next-app --example with-typescript-eslint-jest with-typescript-eslint-jest-app
+npm run dev
 ```
-
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
