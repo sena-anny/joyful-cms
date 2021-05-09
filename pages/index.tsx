@@ -3,8 +3,7 @@ import { Title } from '@components/Title'
 
 export const Home = (): JSX.Element => (
   <Layout>
-    {/* TODO: Headerコンポーネント*/}
-    <Title title={'支援日誌'} />
+    <Title title={'支援日誌管理ツール'} />
     {/* TODO:コンテナ化 */}
     <div className="grid">
       <a href="https://nextjs.org/docs" className="card">

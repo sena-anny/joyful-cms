@@ -11,8 +11,10 @@ import { SignIn } from '../pages/SignIn'
 
 type UserContextType = {
   user: firebase.UserInfo | null | undefined
-  setUser: Dispatch<SetStateAction<firebase.UserInfo>>
+  setUser: Dispatch<SetStateAction<firebase.UserInfo | null>>
   loadingUser: boolean
+  isSignIn: boolean
+  setIsSignedIn: Dispatch<SetStateAction<boolean>>
 }
 
 export const UserContext = createContext<UserContextType>(null)
@@ -52,16 +54,20 @@ export default function UserContextComp({
 
   if (isSignIn) {
     return (
-      <UserContext.Provider value={{ user, setUser, loadingUser }}>
+      <UserContext.Provider
+        value={{ user, setUser, loadingUser, isSignIn, setIsSignedIn }}
+      >
         {children}
       </UserContext.Provider>
     )
   }
   return (
-    <UserContext.Provider value={{ user, setUser, loadingUser }}>
+    <UserContext.Provider
+      value={{ user, setUser, loadingUser, isSignIn, setIsSignedIn }}
+    >
       <SignIn />
     </UserContext.Provider>
   )
 }
 
-export const useUser = () => useContext(UserContext)
+export const useUser = (): UserContextType => useContext(UserContext)
