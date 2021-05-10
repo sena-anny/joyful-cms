@@ -1,3 +1,5 @@
+@use "styles/variables";
+
 .header{
   display: flex;
   width: 100%;
@@ -11,8 +13,8 @@
   }
   button {
     width: 5rem;
-    background: #0070f3;
-    border-color: #0070f3;
+    background: variables.$theme-color;
+    border-color: variables.$theme-color;
     color: #fff;
     font-size: 1rem;
     border-radius: .45em;

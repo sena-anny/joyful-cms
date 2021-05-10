@@ -16,7 +16,6 @@
     "baseUrl": ".",
     "paths": {
       "@components/*": ["components/*"],
-      "@variables": ["styles/variables.scss"],
     }
   },
   "exclude": ["node_modules", ".next", "out"],

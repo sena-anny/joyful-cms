@@ -1,11 +1,12 @@
 import { Layout } from '@components/Layout'
 import { Title } from '@components/Title'
+import { Container } from '@components/Container'
 
 export const Home = (): JSX.Element => (
   <Layout>
     <Title title={'支援日誌管理ツール'} />
-    {/* TODO:コンテナ化 */}
-    <div className="grid">
+
+    <Container>
       <a href="https://nextjs.org/docs" className="card">
         <h3>Documentation &rarr;</h3>
         <p>Find in-depth information about Next.js features and API.</p>
@@ -31,23 +32,8 @@ export const Home = (): JSX.Element => (
         <h3>Deploy &rarr;</h3>
         <p>Instantly deploy your Next.js site to a public URL with Vercel.</p>
       </a>
-    </div>
+    </Container>
     <style jsx>{`
-      a {
-        color: inherit;
-        text-decoration: none;
-      }
-
-      .grid {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-wrap: wrap;
-
-        max-width: 800px;
-        margin-top: 3rem;
-      }
-
       .card {
         margin: 1rem;
         flex-basis: 45%;
@@ -76,13 +62,6 @@ export const Home = (): JSX.Element => (
         margin: 0;
         font-size: 1.25rem;
         line-height: 1.5;
-      }
-
-      @media (max-width: 600px) {
-        .grid {
-          width: 100%;
-          flex-direction: column;
-        }
       }
     `}</style>
   </Layout>

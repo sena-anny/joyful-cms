@@ -1,6 +1,6 @@
 import { Meta } from '@components/Meta'
 import { Footer } from '@components/Footer'
-import styles from './Layout.module.css'
+import styles from './Layout.module.scss'
 import { Header } from '@components/Header'
 
 type Props = { children: JSX.Element[] }
