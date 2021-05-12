@@ -7,29 +7,31 @@ export const Home = (): JSX.Element => (
   <Layout>
     <Title title={'支援日誌管理ツール'} />
     <Container>
-      <Card
-        title={'支援日誌 登録'}
-        description={'支援日誌の登録/編集を実施します'}
-        link={'https://nextjs.org/docs'}
-      />
+      <>
+        <Card
+          title={'支援日誌 登録'}
+          description={'支援日誌の登録/編集を実施します'}
+          link={'https://nextjs.org/docs'}
+        />
 
-      <Card
-        title={'支援日誌 閲覧'}
-        description={'登録済の支援日誌を確認します'}
-        link={'https://nextjs.org/docs'}
-      />
+        <Card
+          title={'支援日誌 閲覧'}
+          description={'登録済の支援日誌を確認します'}
+          link={'https://nextjs.org/docs'}
+        />
 
-      <Card
-        title={'利用者さん 登録'}
-        description={'利用者さんの新規登録を実施します'}
-        link={'https://nextjs.org/docs'}
-      />
+        <Card
+          title={'支援対象者 登録'}
+          description={'利用者さんの新規登録を実施します'}
+          link={'/users/targets/List'}
+        />
 
-      <Card
-        title={'ユーザー 登録'}
-        description={'ユーザーの新規登録を実施します'}
-        link={'https://nextjs.org/docs'}
-      />
+        <Card
+          title={'管理ユーザー 登録'}
+          description={'管理ユーザーの新規登録を実施します'}
+          link={'/users/register/List'}
+        />
+      </>
     </Container>
   </Layout>
 )
