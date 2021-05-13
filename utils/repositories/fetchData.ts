@@ -1,12 +1,12 @@
 import admin from '@utils/firebase/NodeApp'
-import { buildTarget, buildTargets, Target } from '@utils/entities/Target'
+import { buildTarget, buildTargetList, Target } from '@utils/entities/Target'
 import {
   buildRegister,
-  buildRegisters,
+  buildRegisterList,
   Register,
 } from '@utils/entities/Register'
 
-export const getTargets = async (): Promise<Target[]> => {
+export const getTargetList = async (): Promise<Target[]> => {
   try {
     const db = admin.firestore()
     const targetsRef = db.collection('targets')
@@ -14,7 +14,7 @@ export const getTargets = async (): Promise<Target[]> => {
     if (snapshot.empty) {
       return null
     }
-    return buildTargets(snapshot)
+    return buildTargetList(snapshot)
   } catch (e) {
     // eslint-disable-next-line no-console
     console.log(e)
@@ -35,15 +35,15 @@ export const getTarget = async (id: string): Promise<Target> => {
   }
 }
 
-export const getRegisters = async (): Promise<Register[]> => {
+export const getRegisterList = async (): Promise<Register[]> => {
   try {
     const db = admin.firestore()
-    const targetsRef = db.collection('targets')
+    const targetsRef = db.collection('registers')
     const snapshot: FirebaseFirestore.QuerySnapshot<FirebaseFirestore.DocumentData> = await targetsRef.get()
     if (snapshot.empty) {
       return null
     }
-    return buildRegisters(snapshot)
+    return buildRegisterList(snapshot)
   } catch (e) {
     // eslint-disable-next-line no-console
     console.log(e)
@@ -54,7 +54,7 @@ export const getRegisters = async (): Promise<Register[]> => {
 export const getRegister = async (id: string): Promise<Register> => {
   try {
     const db = admin.firestore()
-    const targetsRef = db.collection('targets')
+    const targetsRef = db.collection('registers')
     const snapshot = await targetsRef.doc(id).get()
     return buildRegister(snapshot.data())
   } catch (e) {

@@ -16,7 +16,7 @@ export const buildRegister = (
   }
 }
 
-export const buildRegisters = (
+export const buildRegisterList = (
   data: FirebaseFirestore.QuerySnapshot<FirebaseFirestore.DocumentData>
 ): Register[] => {
   const registers: Register[] = []

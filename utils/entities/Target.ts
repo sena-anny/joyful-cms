@@ -14,7 +14,7 @@ export const buildTarget = (data: FirebaseFirestore.DocumentData): Target => {
   }
 }
 
-export const buildTargets = (
+export const buildTargetList = (
   data: FirebaseFirestore.QuerySnapshot<FirebaseFirestore.DocumentData>
 ): Target[] => {
   const targets: Target[] = []
