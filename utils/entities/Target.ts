@@ -1,9 +1,6 @@
-export type Target = {
-  id: number
-  name: string
-  createdAt?: number
-  updatedAt?: number
-}
+import { User } from '@utils/entities/User'
+
+export type Target = User
 
 export const buildTarget = (data: FirebaseFirestore.DocumentData): Target => {
   return {

@@ -1,9 +1,6 @@
-export type Register = {
-  id: number
-  name: string
-  createdAt?: number
-  updatedAt?: number
-}
+import { User } from '@utils/entities/User'
+
+export type Register = User
 
 export const buildRegister = (
   data: FirebaseFirestore.DocumentData
