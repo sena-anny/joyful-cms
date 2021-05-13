@@ -1,6 +1,6 @@
 @use "styles/variables";
 
-.header{
+.header {
   display: flex;
   width: 100%;
   height: 100px;
@@ -17,9 +17,8 @@
     border-color: variables.$theme-color;
     color: #fff;
     font-size: 1rem;
-    border-radius: .45em;
+    border-radius: 0.45em;
     padding: 10px;
     margin-right: 20px;
   }
 }
-

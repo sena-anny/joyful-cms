@@ -23,7 +23,7 @@
         th {
           display: flex;
           flex: 1;
-          padding: .5em;
+          padding: 0.5em;
         }
       }
     }
@@ -40,17 +40,17 @@
         td {
           display: flex;
           flex: 1;
-          padding: .5em;
+          padding: 0.5em;
           @include variables.mq(sm) {
             flex-direction: column;
-            +td {
+            + td {
               border-top: 1px solid #ccc;
             }
             &::before {
               display: flex;
               align-items: center;
-              margin: -.5em -.5em .75em -.5em;
-              padding: .5em;
+              margin: -0.5em -0.5em 0.75em -0.5em;
+              padding: 0.5em;
               content: attr(data-label);
               color: #fff;
               background: variables.$theme-color;
