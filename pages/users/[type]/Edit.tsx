@@ -3,16 +3,20 @@ import { Container } from '@components/Container'
 import { Layout } from '@components/Layout'
 import { useRouter } from 'next/router'
 import { useForm, Controller } from 'react-hook-form'
-import { Input } from '@material-ui/core'
+import { TextField } from '@material-ui/core'
 import {
   createRegisterUser,
   createTargetUser,
 } from '@utils/repositories/postData'
 import { UserInputs } from '../../../types/FormModel'
+import { useState } from 'react'
+import { DialogWrapper } from '@components/DialogWrapper'
 
 const Edit = (): JSX.Element => {
   const router = useRouter()
   const { type } = router.query
+  const [openDialog, setDialog] = useState<boolean>(false)
+  const [alert, setAlert] = useState<string>('')
   const {
     handleSubmit,
     control,
@@ -24,12 +28,12 @@ const Edit = (): JSX.Element => {
     let result = ''
     if (type === 'targets') {
       result = await createTargetUser(data)
-      // eslint-disable-next-line no-console
-      console.log('result', result)
+      setDialog(true)
+      setAlert(`result is ${result}`)
     }
     result = await createRegisterUser(data)
-    // eslint-disable-next-line no-console
-    console.log('result', result)
+    setDialog(true)
+    setAlert(`result is ${result}`)
   }
 
   return (
@@ -42,22 +46,40 @@ const Edit = (): JSX.Element => {
       <Container>
         <>
           <form onSubmit={handleSubmit(submitFirebase)} className={'form'}>
-            <label>姓</label>
             <Controller
               name="lastName"
               control={control}
               rules={{ required: true }}
               defaultValue=""
-              render={({ field }) => <Input {...field} />}
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  label="姓"
+                  variant="outlined"
+                  placeholder="*必須"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                />
+              )}
             />
             {errors.lastName && <p className="warn">姓を入力してください</p>}
-            <label>名</label>
             <Controller
               name="firstName"
               control={control}
               rules={{ required: true }}
               defaultValue=""
-              render={({ field }) => <Input {...field} />}
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  label="名"
+                  variant="outlined"
+                  placeholder="*必須"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                />
+              )}
             />
             {errors.firstName && <p className="warn">名を入力してください</p>}
             <button
@@ -73,6 +95,12 @@ const Edit = (): JSX.Element => {
               登録
             </button>
           </form>
+          <DialogWrapper
+            open={openDialog}
+            title="結果"
+            body={alert}
+            setModal={setDialog}
+          />
         </>
       </Container>
     </Layout>
