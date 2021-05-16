@@ -2,13 +2,15 @@ import { Title } from '@components/Title'
 import { Container } from '@components/Container'
 import { Layout } from '@components/Layout'
 import { InferGetServerSidePropsType, GetServerSideProps } from 'next'
-import { getTargets } from '@utils/repositories/fetchData'
-import { Target } from '@utils/entities/Target'
+import { getRegisterList, getTargetList } from '@utils/repositories/fetchData'
+import { User } from '@utils/entities/User'
+import { UserList } from '@components/UserList'
+import { Button } from '@components/Button'
 
 const List = ({
   data,
 }: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element => {
-  const { type, targets } = data
+  const { type, userList } = data
 
   return (
     <Layout>
@@ -19,8 +21,12 @@ const List = ({
       )}
       <Container>
         <>
-          <p>User : {targets.map((target) => target.name)}</p>
-          <p>Type : {type}</p>
+          <UserList userList={userList} />
+          <Button
+            name={'登録'}
+            description={'新規登録します'}
+            link={`/users/${type}/Edit`}
+          />
         </>
       </Container>
     </Layout>
@@ -28,18 +34,24 @@ const List = ({
 }
 
 type Props = {
-  data: { type: string; targets: Target[] }
+  data: { type: string; userList: User[] }
 }
 
 export const getServerSideProps: GetServerSideProps<Props> = async ({
   params,
 }) => {
   const type = params.type as string
-  const targets: Target[] = await getTargets()
-  // eslint-disable-next-line no-console
-  console.log(targets)
+  let userList: User[] = undefined
+  switch (type) {
+    case 'targets':
+      userList = await getTargetList()
+      break
+    case 'registers':
+      userList = await getRegisterList()
+      break
+  }
 
-  return { props: { data: { type, targets } } }
+  return { props: { data: { type, userList } } }
 }
 
 export default List

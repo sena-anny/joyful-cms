@@ -29,7 +29,7 @@ export const Home = (): JSX.Element => (
         <Card
           title={'管理ユーザー 登録'}
           description={'管理ユーザーの新規登録を実施します'}
-          link={'/users/register/List'}
+          link={'/users/registers/List'}
         />
       </>
     </Container>
