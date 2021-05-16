@@ -11,14 +11,15 @@ export const createTargetUser = async (data: UserInputs): Promise<string> => {
     const db = firebase.firestore()
     const batch = db.batch()
     const ref = db.collection('targets')
+    const timeStamp = getTimeStamp()
 
     batch.set(
       ref.doc(targetName),
       {
         name: targetName,
-        id: getTimeStamp(),
-        createdAt: getTimeStamp(),
-        updateAt: getTimeStamp(),
+        id: timeStamp,
+        createdAt: timeStamp,
+        updateAt: timeStamp,
       },
       { merge: true }
     )
@@ -41,14 +42,15 @@ export const createRegisterUser = async (data: UserInputs): Promise<string> => {
     const db = firebase.firestore()
     const batch = db.batch()
     const ref = db.collection('registers')
+    const timeStamp = getTimeStamp()
 
     batch.set(
       ref.doc(registerName),
       {
         name: registerName,
-        id: getTimeStamp(),
-        createdAt: getTimeStamp(),
-        updateAt: getTimeStamp(),
+        id: timeStamp,
+        createdAt: timeStamp,
+        updateAt: timeStamp,
       },
       { merge: true }
     )

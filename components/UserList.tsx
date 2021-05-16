@@ -16,7 +16,9 @@ export const UserList = ({ userList }: { userList: User[] }): JSX.Element => {
             return (
               <tr key={user.id}>
                 <td data-label="お名前">{user.name}</td>
-                <td data-label="登録日">{user.createdAt}</td>
+                <td data-label="登録日">
+                  {new Date(user.createdAt).toLocaleDateString()}
+                </td>
               </tr>
             )
           })}
