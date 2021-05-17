@@ -11,6 +11,7 @@ import {
 import { UserInputs } from '../../../types/FormModel'
 import { useState } from 'react'
 import { DialogWrapper } from '@components/DialogWrapper'
+import styles from './Edit.module.scss'
 
 const Edit = (): JSX.Element => {
   const router = useRouter()
@@ -25,15 +26,25 @@ const Edit = (): JSX.Element => {
   } = useForm<UserInputs>()
 
   const submitFirebase = async (data: UserInputs) => {
-    let result = ''
+    let result: string
     if (type === 'targets') {
       result = await createTargetUser(data)
       setDialog(true)
-      setAlert(`result is ${result}`)
+      if (result === 'success') {
+        setAlert(`登録完了しました`)
+      } else {
+        setAlert(`登録失敗しました。`)
+      }
+      return
     }
     result = await createRegisterUser(data)
     setDialog(true)
-    setAlert(`result is ${result}`)
+    if (result === 'success') {
+      setAlert(`登録完了しました`)
+    } else {
+      setAlert(`登録失敗しました。`)
+    }
+    return
   }
 
   return (
@@ -45,7 +56,7 @@ const Edit = (): JSX.Element => {
       )}
       <Container>
         <>
-          <form onSubmit={handleSubmit(submitFirebase)} className={'form'}>
+          <form onSubmit={handleSubmit(submitFirebase)} className={styles.form}>
             <Controller
               name="lastName"
               control={control}
@@ -57,13 +68,17 @@ const Edit = (): JSX.Element => {
                   label="姓"
                   variant="outlined"
                   placeholder="*必須"
+                  margin="normal"
+                  helperText="（例）田中"
                   InputLabelProps={{
                     shrink: true,
                   }}
                 />
               )}
             />
-            {errors.lastName && <p className="warn">姓を入力してください</p>}
+            {errors.lastName && (
+              <p className={styles.warn}>姓を入力してください</p>
+            )}
             <Controller
               name="firstName"
               control={control}
@@ -75,13 +90,17 @@ const Edit = (): JSX.Element => {
                   label="名"
                   variant="outlined"
                   placeholder="*必須"
+                  margin="normal"
+                  helperText="（例）太郎"
                   InputLabelProps={{
                     shrink: true,
                   }}
                 />
               )}
             />
-            {errors.firstName && <p className="warn">名を入力してください</p>}
+            {errors.firstName && (
+              <p className={styles.warn}>名を入力してください</p>
+            )}
             <button
               className="reset"
               type="button"
@@ -97,7 +116,7 @@ const Edit = (): JSX.Element => {
           </form>
           <DialogWrapper
             open={openDialog}
-            title="結果"
+            title="登録結果"
             body={alert}
             setModal={setDialog}
           />
