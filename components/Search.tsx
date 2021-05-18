@@ -2,6 +2,12 @@ import styles from './Search.module.scss'
 import { Controller, useForm } from 'react-hook-form'
 import { InputLabel, MenuItem, Select } from '@material-ui/core'
 import { ISearchInputs } from '../types/FormModel'
+import MomentUtils from '@date-io/moment'
+import {
+  KeyboardDatePicker,
+  MuiPickersUtilsProvider,
+} from '@material-ui/pickers'
+import moment from 'moment'
 
 export const Search = (): JSX.Element => {
   const {
@@ -21,6 +27,28 @@ export const Search = (): JSX.Element => {
     <>
       <form onSubmit={handleSubmit(searchFirebase)} className={styles.search}>
         <div className={styles.form}>
+          <MuiPickersUtilsProvider utils={MomentUtils}>
+            <Controller
+              name="MUIPicker"
+              control={control}
+              render={({ field: { onChange, value, name } }) => (
+                <KeyboardDatePicker
+                  margin="normal"
+                  id="date-picker-dialog"
+                  label="対象日選択"
+                  format="yyyy/MM/DD"
+                  KeyboardButtonProps={{
+                    'aria-label': 'change date',
+                  }}
+                  value={value}
+                  onChange={onChange}
+                  name={name}
+                />
+              )}
+            />
+          </MuiPickersUtilsProvider>
+        </div>
+        <div className={styles.form}>
           <InputLabel shrink>支援対象者選択</InputLabel>
           <Controller
             name="targetPerson"
@@ -29,8 +57,8 @@ export const Search = (): JSX.Element => {
             rules={{ required: true }}
             render={({ field }) => (
               <Select {...field} className={styles.select}>
-                <MenuItem value={'XXX'}>選択してください</MenuItem>
-                <MenuItem value={'AAA'}>Bさん</MenuItem>
+                <MenuItem value={'XX'}>選択してください</MenuItem>
+                <MenuItem value={'B'}>Bさん</MenuItem>
               </Select>
             )}
           />
@@ -61,6 +89,7 @@ export const Search = (): JSX.Element => {
           type="button"
           onClick={() => {
             reset({
+              MUIPicker: moment(),
               registerPerson: '',
               targetPerson: '',
             })
