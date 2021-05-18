@@ -1,0 +1,17 @@
+@use "styles/variables";
+.search {
+  display: flex;
+  flex-direction: column;
+  .form {
+    margin: 1rem;
+
+    .select {
+      min-width: 200px;
+
+      @include variables.mq(sm) {
+        min-width: 100px
+      }
+    }
+  }
+}
+

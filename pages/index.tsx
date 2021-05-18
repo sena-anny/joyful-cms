@@ -11,7 +11,7 @@ export const Home = (): JSX.Element => (
         <Card
           title={'支援日誌 登録'}
           description={'支援日誌の登録/編集を実施します'}
-          link={'https://nextjs.org/docs'}
+          link={'/posts/Post'}
         />
 
         <Card
@@ -27,8 +27,8 @@ export const Home = (): JSX.Element => (
         />
 
         <Card
-          title={'管理ユーザー 登録'}
-          description={'管理ユーザーの新規登録を実施します'}
+          title={'入力ユーザー 登録'}
+          description={'管理ツール利用ユーザーの新規登録を実施します'}
           link={'/users/registers/List'}
         />
       </>
