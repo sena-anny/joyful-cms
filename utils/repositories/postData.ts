@@ -14,7 +14,7 @@ export const createTargetUser = async (data: UserInputs): Promise<string> => {
     const timeStamp = getTimeStamp()
 
     batch.set(
-      ref.doc(targetName),
+      ref.doc(timeStamp.toString()),
       {
         name: targetName,
         id: timeStamp,
@@ -45,7 +45,7 @@ export const createRegisterUser = async (data: UserInputs): Promise<string> => {
     const timeStamp = getTimeStamp()
 
     batch.set(
-      ref.doc(registerName),
+      ref.doc(timeStamp.toString()),
       {
         name: registerName,
         id: timeStamp,

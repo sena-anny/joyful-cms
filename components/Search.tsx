@@ -8,8 +8,16 @@ import {
   MuiPickersUtilsProvider,
 } from '@material-ui/pickers'
 import moment from 'moment'
+import { Register } from '@utils/entities/Register'
+import { Target } from '@utils/entities/Target'
 
-export const Search = (): JSX.Element => {
+export const Search = ({
+  registerList,
+  targetList,
+}: {
+  registerList: Register[]
+  targetList: Target[]
+}): JSX.Element => {
   const {
     handleSubmit,
     control,
@@ -57,8 +65,13 @@ export const Search = (): JSX.Element => {
             rules={{ required: true }}
             render={({ field }) => (
               <Select {...field} className={styles.select}>
-                <MenuItem value={'XX'}>選択してください</MenuItem>
-                <MenuItem value={'B'}>Bさん</MenuItem>
+                {targetList.map((target) => {
+                  return (
+                    <MenuItem value={target.id} key={target.id}>
+                      {target.name}
+                    </MenuItem>
+                  )
+                })}
               </Select>
             )}
           />
@@ -75,8 +88,13 @@ export const Search = (): JSX.Element => {
             rules={{ required: true }}
             render={({ field }) => (
               <Select {...field} className={styles.select}>
-                <MenuItem value={'XX'}>選択してください</MenuItem>
-                <MenuItem value={'B'}>Bさん</MenuItem>
+                {registerList.map((register) => {
+                  return (
+                    <MenuItem value={register.id} key={register.id}>
+                      {register.name}
+                    </MenuItem>
+                  )
+                })}
               </Select>
             )}
           />
