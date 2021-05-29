@@ -1,10 +1,6 @@
 import admin from '@utils/firebase/NodeApp'
-import { buildTarget, buildTargetList, Target } from '@utils/entities/Target'
-import {
-  buildRegister,
-  buildRegisterList,
-  Register,
-} from '@utils/entities/Register'
+import { buildTargetList, Target } from '@utils/entities/Target'
+import { buildRegisterList, Register } from '@utils/entities/Register'
 
 export const getTargetList = async (): Promise<Target[]> => {
   try {
@@ -22,19 +18,6 @@ export const getTargetList = async (): Promise<Target[]> => {
   }
 }
 
-export const getTarget = async (id: string): Promise<Target> => {
-  try {
-    const db = admin.firestore()
-    const targetsRef = db.collection('targets')
-    const snapshot = await targetsRef.doc(id).get()
-    return buildTarget(snapshot.data())
-  } catch (e) {
-    // eslint-disable-next-line no-console
-    console.log(e)
-    return null
-  }
-}
-
 export const getRegisterList = async (): Promise<Register[]> => {
   try {
     const db = admin.firestore()
@@ -44,19 +27,6 @@ export const getRegisterList = async (): Promise<Register[]> => {
       return null
     }
     return buildRegisterList(snapshot)
-  } catch (e) {
-    // eslint-disable-next-line no-console
-    console.log(e)
-    return null
-  }
-}
-
-export const getRegister = async (id: string): Promise<Register> => {
-  try {
-    const db = admin.firestore()
-    const registersRef = db.collection('registers')
-    const snapshot = await registersRef.doc(id).get()
-    return buildRegister(snapshot.data())
   } catch (e) {
     // eslint-disable-next-line no-console
     console.log(e)

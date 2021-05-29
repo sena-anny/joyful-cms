@@ -10,3 +10,8 @@ export interface ISearchInputs {
   targetPerson: string
   registerPerson: string
 }
+
+export interface IPostInputs {
+  title: string
+  content: string
+}

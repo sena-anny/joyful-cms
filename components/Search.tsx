@@ -30,12 +30,12 @@ export const Search = ({
   const searchFirebase = async (data: ISearchInputs) => {
     // 日付と対象者と入力ユーザーを抽出
     const targetDate = data.datePicker.format('YYYYMMDD')
-    const target = data.targetPerson
-    const register = data.registerPerson
+    const targetId = data.targetPerson
+    const registerId = data.registerPerson
 
     await router.push({
       pathname: '/posts/Post',
-      query: { targetDate, target, register },
+      query: { targetDate, targetId, registerId },
     })
 
     return

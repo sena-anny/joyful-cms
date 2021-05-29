@@ -1,37 +1,50 @@
 import { Title } from '@components/Title'
 import { Container } from '@components/Container'
 import { Layout } from '@components/Layout'
-import { Search } from '@components/Search'
-import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
-import { getRegisterList, getTargetList } from '@utils/repositories/fetchData'
-import { Register } from '@utils/entities/Register'
-import { Target } from '@utils/entities/Target'
+import { PostModel } from '@utils/entities/PostModel'
+import { useRouter } from 'next/router'
+import { getPost } from '@utils/repositories/fetchDataFromClientSide'
+import { useEffect, useState } from 'react'
+import { Form } from '@components/Form'
 
-const Post = ({
-  data,
-}: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element => {
-  const { registerList, targetList } = data
+const Post = (): JSX.Element => {
+  const router = useRouter()
+  const [title, setTitle] = useState<string>('')
+  const [content, setContent] = useState<string>('')
+
+  useEffect(() => {
+    if (router.query) {
+      const id = `${router.query.targetDate}-${router.query.targetId}-${router.query.registerId}`
+      const fetchPost = async (): Promise<PostModel> => {
+        try {
+          return await getPost(id)
+        } catch (e) {
+          return null
+        }
+      }
+      fetchPost().then((data) => {
+        if (data !== null) {
+          setTitle(data.title)
+          setContent(data.content)
+        }
+      })
+    }
+  }, [router.query])
+
   return (
     <Layout>
       <Title title={'支援日誌 登録'} />
       <Container>
-        <>
-          <Search registerList={registerList} targetList={targetList} />
-        </>
+        <Form
+          title={title}
+          content={content}
+          targetDate={router.query.targetDate as string}
+          targetId={router.query.targetId as string}
+          registerId={router.query.registerId as string}
+        />
       </Container>
     </Layout>
   )
-}
-
-type Props = {
-  data: { registerList: Register[]; targetList: Target[] }
-}
-
-export const getServerSideProps: GetServerSideProps<Props> = async () => {
-  const targetList = await getTargetList()
-  const registerList = await getRegisterList()
-
-  return { props: { data: { registerList, targetList } } }
 }
 
 export default Post

@@ -1,7 +1,7 @@
 import firebase from '@utils/firebase/ClientApp'
 
 export type PostModel = {
-  id: number
+  id: string
   title: string
   date: string
   content: string
