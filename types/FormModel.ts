@@ -6,7 +6,7 @@ export type UserInputs = {
 }
 
 export interface ISearchInputs {
-  MUIPicker: Moment
+  datePicker: Moment
   targetPerson: string
   registerPerson: string
 }

@@ -11,7 +11,7 @@ export const Home = (): JSX.Element => (
         <Card
           title={'支援日誌 登録'}
           description={'支援日誌の登録/編集を実施します'}
-          link={'/posts/Post'}
+          link={'/posts/Confirm'}
         />
 
         <Card

@@ -10,6 +10,7 @@ import {
 import moment from 'moment'
 import { Register } from '@utils/entities/Register'
 import { Target } from '@utils/entities/Target'
+import { useRouter } from 'next/router'
 
 export const Search = ({
   registerList,
@@ -24,97 +25,107 @@ export const Search = ({
     reset,
     formState: { errors },
   } = useForm<ISearchInputs>()
+  const router = useRouter()
 
-  const searchFirebase = (data: ISearchInputs) => {
-    // eslint-disable-next-line no-console
-    console.log(data)
+  const searchFirebase = async (data: ISearchInputs) => {
+    // 日付と対象者と入力ユーザーを抽出
+    const targetDate = data.datePicker.format('YYYYMMDD')
+    const target = data.targetPerson
+    const register = data.registerPerson
+
+    await router.push({
+      pathname: '/posts/Post',
+      query: { targetDate, target, register },
+    })
+
     return
   }
 
   return (
-    <>
-      <form onSubmit={handleSubmit(searchFirebase)} className={styles.search}>
-        <div className={styles.form}>
-          <MuiPickersUtilsProvider utils={MomentUtils}>
-            <Controller
-              name="MUIPicker"
-              control={control}
-              render={({ field: { onChange, value, name } }) => (
-                <KeyboardDatePicker
-                  margin="normal"
-                  id="date-picker-dialog"
-                  label="対象日選択"
-                  format="yyyy/MM/DD"
-                  KeyboardButtonProps={{
-                    'aria-label': 'change date',
-                  }}
-                  value={value}
-                  onChange={onChange}
-                  name={name}
-                />
-              )}
-            />
-          </MuiPickersUtilsProvider>
-        </div>
-        <div className={styles.form}>
-          <InputLabel shrink>支援対象者選択</InputLabel>
+    <form onSubmit={handleSubmit(searchFirebase)} className={styles.search}>
+      <div className={styles.form}>
+        <MuiPickersUtilsProvider utils={MomentUtils}>
           <Controller
-            name="targetPerson"
+            name="datePicker"
             control={control}
-            defaultValue={''}
-            rules={{ required: true }}
-            render={({ field }) => (
-              <Select {...field} className={styles.select}>
-                {targetList.map((target) => (
-                  <MenuItem value={target.id} key={target.id}>
-                    {target.name}
-                  </MenuItem>
-                ))}
-              </Select>
+            defaultValue={moment()}
+            render={({ field: { onChange, value, name } }) => (
+              <KeyboardDatePicker
+                margin="normal"
+                id="date-picker-dialog"
+                label="対象日選択"
+                format="yyyy/MM/DD"
+                KeyboardButtonProps={{
+                  'aria-label': 'change date',
+                }}
+                value={value}
+                onChange={onChange}
+                name={name}
+              />
             )}
           />
-          {errors.targetPerson && (
-            <p className={styles.warn}>支援対象者を選択してください</p>
+        </MuiPickersUtilsProvider>
+      </div>
+      <div className={styles.form}>
+        <InputLabel shrink>支援対象者選択</InputLabel>
+        {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+        {/*// @ts-ignore*/}
+        <Controller
+          name="targetPerson"
+          control={control}
+          defaultValue={''}
+          rules={{ required: true }}
+          render={({ field }) => (
+            <Select {...field} className={styles.select}>
+              {targetList.map((target) => (
+                <MenuItem value={target.id} key={target.id}>
+                  {target.name}
+                </MenuItem>
+              ))}
+            </Select>
           )}
-        </div>
-        <div className={styles.form}>
-          <InputLabel shrink>入力ユーザー選択</InputLabel>
-          <Controller
-            name="registerPerson"
-            control={control}
-            defaultValue={''}
-            rules={{ required: true }}
-            render={({ field }) => (
-              <Select {...field} className={styles.select}>
-                {registerList.map((register) => (
-                  <MenuItem value={register.id} key={register.id}>
-                    {register.name}
-                  </MenuItem>
-                ))}
-              </Select>
-            )}
-          />
-          {errors.registerPerson && (
-            <p className={styles.warn}>入力ユーザーを選択してください</p>
+        />
+        {errors.targetPerson && (
+          <p className={styles.warn}>支援対象者を選択してください</p>
+        )}
+      </div>
+      <div className={styles.form}>
+        <InputLabel shrink>入力ユーザー選択</InputLabel>
+        <Controller
+          name="registerPerson"
+          control={control}
+          defaultValue={''}
+          rules={{ required: true }}
+          render={({ field }) => (
+            <Select {...field} className={styles.select}>
+              {registerList.map((register) => (
+                <MenuItem value={register.id} key={register.id}>
+                  {register.name}
+                </MenuItem>
+              ))}
+            </Select>
           )}
-        </div>
-        <button
-          className={styles.button}
-          type="button"
-          onClick={() => {
-            reset({
-              MUIPicker: moment(),
-              registerPerson: '',
-              targetPerson: '',
-            })
-          }}
-        >
-          リセット
-        </button>
-        <button className={styles.button} type="submit">
-          登録
-        </button>
-      </form>
-    </>
+        />
+        {errors.registerPerson && (
+          <p className={styles.warn}>入力ユーザーを選択してください</p>
+        )}
+      </div>
+      <button
+        className={styles.button}
+        type="button"
+        onClick={() => {
+          reset({
+            datePicker: moment(),
+            registerPerson: '',
+            targetPerson: '',
+          })
+        }}
+      >
+        リセット
+      </button>
+      <button className={styles.button} type="submit">
+        登録
+      </button>
+    </form>
   )
 }

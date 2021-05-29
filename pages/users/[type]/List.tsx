@@ -2,7 +2,10 @@ import { Title } from '@components/Title'
 import { Container } from '@components/Container'
 import { Layout } from '@components/Layout'
 import { InferGetServerSidePropsType, GetServerSideProps } from 'next'
-import { getRegisterList, getTargetList } from '@utils/repositories/fetchData'
+import {
+  getRegisterList,
+  getTargetList,
+} from '@utils/repositories/fetchDataFromServerSide'
 import { User } from '@utils/entities/User'
 import { UserList } from '@components/UserList'
 import { Button } from '@components/Button'

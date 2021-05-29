@@ -38,8 +38,8 @@ export const getTarget = async (id: string): Promise<Target> => {
 export const getRegisterList = async (): Promise<Register[]> => {
   try {
     const db = admin.firestore()
-    const targetsRef = db.collection('registers')
-    const snapshot: FirebaseFirestore.QuerySnapshot<FirebaseFirestore.DocumentData> = await targetsRef.get()
+    const registersRef = db.collection('registers')
+    const snapshot: FirebaseFirestore.QuerySnapshot<FirebaseFirestore.DocumentData> = await registersRef.get()
     if (snapshot.empty) {
       return null
     }
@@ -54,8 +54,8 @@ export const getRegisterList = async (): Promise<Register[]> => {
 export const getRegister = async (id: string): Promise<Register> => {
   try {
     const db = admin.firestore()
-    const targetsRef = db.collection('registers')
-    const snapshot = await targetsRef.doc(id).get()
+    const registersRef = db.collection('registers')
+    const snapshot = await registersRef.doc(id).get()
     return buildRegister(snapshot.data())
   } catch (e) {
     // eslint-disable-next-line no-console
