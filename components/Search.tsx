@@ -65,13 +65,11 @@ export const Search = ({
             rules={{ required: true }}
             render={({ field }) => (
               <Select {...field} className={styles.select}>
-                {targetList.map((target) => {
-                  return (
-                    <MenuItem value={target.id} key={target.id}>
-                      {target.name}
-                    </MenuItem>
-                  )
-                })}
+                {targetList.map((target) => (
+                  <MenuItem value={target.id} key={target.id}>
+                    {target.name}
+                  </MenuItem>
+                ))}
               </Select>
             )}
           />
@@ -88,13 +86,11 @@ export const Search = ({
             rules={{ required: true }}
             render={({ field }) => (
               <Select {...field} className={styles.select}>
-                {registerList.map((register) => {
-                  return (
-                    <MenuItem value={register.id} key={register.id}>
-                      {register.name}
-                    </MenuItem>
-                  )
-                })}
+                {registerList.map((register) => (
+                  <MenuItem value={register.id} key={register.id}>
+                    {register.name}
+                  </MenuItem>
+                ))}
               </Select>
             )}
           />
@@ -103,7 +99,7 @@ export const Search = ({
           )}
         </div>
         <button
-          className="reset"
+          className={styles.button}
           type="button"
           onClick={() => {
             reset({
@@ -115,8 +111,8 @@ export const Search = ({
         >
           リセット
         </button>
-        <button className="submit" type="submit">
-          検索
+        <button className={styles.button} type="submit">
+          登録
         </button>
       </form>
     </>
