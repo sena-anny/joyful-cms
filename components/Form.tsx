@@ -16,12 +16,14 @@ export const Form = ({
   targetDate,
   targetId,
   registerId,
+  isLoading,
 }: {
   title: string
   content: string
   targetDate: string
   targetId: string
   registerId: string
+  isLoading: boolean
 }): JSX.Element => {
   const {
     handleSubmit,
@@ -52,11 +54,15 @@ export const Form = ({
     return
   }
 
+  function formatDate(date: string): string {
+    return `${date.slice(0, 4)}年${date.slice(4, 6)}月${date.slice(6, 9)}日`
+  }
+
   return (
     <form onSubmit={handleSubmit(registerFirebase)} className={styles.search}>
       <div className={styles.form}>
-        <p>対象日</p>
-        {targetDate}
+        <p>支援実施日</p>
+        {formatDate(targetDate)}
       </div>
       <div className={styles.form}>
         <InputLabel shrink>支援対象者</InputLabel>
@@ -66,47 +72,52 @@ export const Form = ({
         <InputLabel shrink>入力ユーザー</InputLabel>
         <p>{registerName}</p>
       </div>
-      <Controller
-        name="title"
-        control={control}
-        rules={{ required: true }}
-        defaultValue={title}
-        render={({ field }) => (
-          <TextField
-            {...field}
-            label="支援場面"
-            variant="outlined"
-            placeholder="*必須"
-            margin="normal"
-            helperText="（例）母の日カード作り"
-            InputLabelProps={{
-              shrink: true,
-            }}
-          />
-        )}
-      />
+      {!isLoading && (
+        <Controller
+          name="title"
+          control={control}
+          rules={{ required: true }}
+          defaultValue={title}
+          render={({ field }) => (
+            <TextField
+              {...field}
+              label="支援場面"
+              variant="outlined"
+              placeholder="*必須"
+              margin="normal"
+              helperText="（例）母の日カード作り"
+              InputLabelProps={{
+                shrink: true,
+              }}
+            />
+          )}
+        />
+      )}
       {errors.title && <p className={styles.warn}>入力してください</p>}
-      <Controller
-        name="content"
-        control={control}
-        rules={{ required: true }}
-        defaultValue={content}
-        render={({ field }) => (
-          <TextField
-            {...field}
-            label="内容"
-            variant="outlined"
-            placeholder="*必須"
-            multiline
-            rows={8}
-            margin="normal"
-            InputLabelProps={{
-              shrink: true,
-            }}
-          />
-        )}
-      />
+      {!isLoading && (
+        <Controller
+          name="content"
+          control={control}
+          rules={{ required: true }}
+          defaultValue={content}
+          render={({ field }) => (
+            <TextField
+              {...field}
+              label="内容"
+              variant="outlined"
+              placeholder="*必須"
+              multiline
+              rows={8}
+              margin="normal"
+              InputLabelProps={{
+                shrink: true,
+              }}
+            />
+          )}
+        />
+      )}
       {errors.content && <p className={styles.warn}>入力してください</p>}
+
       <button
         className={styles.button}
         type="button"

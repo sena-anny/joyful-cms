@@ -11,6 +11,7 @@ const Post = (): JSX.Element => {
   const router = useRouter()
   const [title, setTitle] = useState<string>('')
   const [content, setContent] = useState<string>('')
+  const [loading, setLoading] = useState<boolean>(true)
 
   useEffect(() => {
     if (router.query) {
@@ -27,6 +28,7 @@ const Post = (): JSX.Element => {
           setTitle(data.title)
           setContent(data.content)
         }
+        setLoading(false)
       })
     }
   }, [router.query])
@@ -41,6 +43,7 @@ const Post = (): JSX.Element => {
           targetDate={router.query.targetDate as string}
           targetId={router.query.targetId as string}
           registerId={router.query.registerId as string}
+          isLoading={loading}
         />
       </Container>
     </Layout>
