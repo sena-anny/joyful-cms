@@ -1,0 +1,63 @@
+@use "styles/variables";
+
+.section {
+  display: flex;
+  flex-direction: column;
+  table {
+    border: 1px solid #ccc;
+    background: #fff;
+    min-width: 500px;
+    @include variables.mq(sm) {
+      border: 0;
+      min-width: 300px;
+    }
+    thead {
+      color: #ffffff;
+      font-size: 1.5rem;
+      background: variables.$theme-color;
+      @include variables.mq(sm) {
+        display: none;
+      }
+      tr {
+        display: flex;
+        th {
+          display: flex;
+          flex: 1;
+          padding: 0.5em;
+        }
+      }
+    }
+    tbody {
+      tr {
+        display: flex;
+        font-size: 1.25rem;
+        border: 1px solid #ccc;
+        @include variables.mq(sm) {
+          flex-direction: column;
+          margin: 1em;
+          border: 1px solid #ccc;
+        }
+        td {
+          display: flex;
+          flex: 1;
+          padding: 0.5em;
+          @include variables.mq(sm) {
+            flex-direction: column;
+            + td {
+              border-top: 1px solid #ccc;
+            }
+            &::before {
+              display: flex;
+              align-items: center;
+              margin: -0.5em -0.5em 0.75em -0.5em;
+              padding: 0.5em;
+              content: attr(data-label);
+              color: #fff;
+              background: variables.$theme-color;
+            }
+          }
+        }
+      }
+    }
+  }
+}

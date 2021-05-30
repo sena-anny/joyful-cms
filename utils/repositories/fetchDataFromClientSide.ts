@@ -19,6 +19,36 @@ export const getPostList = async (): Promise<PostModel[]> => {
   }
 }
 
+type PostFilter = {
+  dates?: string[]
+  targetsId?: string[]
+  registersId?: string[]
+}
+
+export const getPostListByFilter = async ({
+  dates,
+  targetsId,
+  registersId,
+}: PostFilter): Promise<PostModel[]> => {
+  try {
+    const db = firebase.firestore()
+    const postsRef = db.collection('posts')
+    const snapshot: firebase.firestore.QuerySnapshot<firebase.firestore.DocumentData> = await postsRef
+      .where('date', 'in', [dates])
+      .where('targetId', 'in', [targetsId])
+      .where('registerId', 'in', [registersId])
+      .get()
+    if (snapshot.empty) {
+      return null
+    }
+    return buildPostList(snapshot)
+  } catch (e) {
+    // eslint-disable-next-line no-console
+    console.log(e)
+    return null
+  }
+}
+
 export const getPost = async (id: string): Promise<PostModel> => {
   try {
     const db = firebase.firestore()

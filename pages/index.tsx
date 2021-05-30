@@ -17,7 +17,7 @@ export const Home = (): JSX.Element => (
         <Card
           title={'支援日誌 閲覧'}
           description={'登録済の支援日誌を確認します'}
-          link={'https://nextjs.org/docs'}
+          link={'/posts/List'}
         />
 
         <Card
