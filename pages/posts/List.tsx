@@ -6,6 +6,13 @@ import { getPostList } from '@utils/repositories/fetchDataFromClientSide'
 import { PostModel } from '@utils/entities/PostModel'
 import { useEffect, useState } from 'react'
 import { PostList } from '@components/PostList'
+import {
+  getRegisterList,
+  getTargetList,
+} from '@utils/repositories/fetchDataFromServerSide'
+import { Register } from '@utils/entities/Register'
+import { Target } from '@utils/entities/Target'
+import { Filter } from '@components/Filter'
 
 const List = ({
   data,
@@ -20,7 +27,10 @@ const List = ({
       <Title title={'支援日誌一覧'} />
       <Container>
         <>
-          {/*フィルターコンポーネント*/}
+          <Filter
+            registerList={data.registerList}
+            targetList={data.targetList}
+          />
           {postList && <PostList postList={postList} />}
         </>
       </Container>
@@ -29,13 +39,19 @@ const List = ({
 }
 
 type Props = {
-  data: { postList: PostModel[] }
+  data: {
+    postList: PostModel[]
+    registerList: Register[]
+    targetList: Target[]
+  }
 }
 
 export const getServerSideProps: GetServerSideProps<Props> = async () => {
   const postList: PostModel[] = await getPostList()
+  const registerList = await getRegisterList()
+  const targetList = await getTargetList()
 
-  return { props: { data: { postList } } }
+  return { props: { data: { postList, registerList, targetList } } }
 }
 
 export default List

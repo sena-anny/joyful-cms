@@ -11,6 +11,12 @@ export interface ISearchInputs {
   registerPerson: string
 }
 
+export interface IFilterInputs {
+  datePicker: Moment
+  targetPersons: string[]
+  registerPersons: string[]
+}
+
 export interface IPostInputs {
   title: string
   content: string
