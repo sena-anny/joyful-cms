@@ -30,6 +30,7 @@ const List = ({
           <Filter
             registerList={data.registerList}
             targetList={data.targetList}
+            setPostList={setPostList}
           />
           {postList && <PostList postList={postList} />}
         </>
