@@ -13,8 +13,7 @@ import {
 import { Register } from '@utils/entities/Register'
 import { Target } from '@utils/entities/Target'
 import { Filter } from '@components/Filter'
-import { Button } from '@material-ui/core'
-import styles from '@components/Title.module.scss'
+import { Toggle } from '@components/Toggle'
 
 const List = ({
   data,
@@ -30,25 +29,7 @@ const List = ({
       <Title title={'支援日誌一覧'} />
       <Container>
         <>
-          {open ? (
-            <Button
-              className={styles.button}
-              variant="outlined"
-              color="secondary"
-              onClick={() => setOpen(false)}
-            >
-              閉じる
-            </Button>
-          ) : (
-            <Button
-              className={styles.button}
-              variant="outlined"
-              color="primary"
-              onClick={() => setOpen(true)}
-            >
-              詳細検索
-            </Button>
-          )}
+          <Toggle open={open} setOpen={setOpen} />
           {open && (
             <Filter
               registerList={data.registerList}

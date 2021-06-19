@@ -1,0 +1,9 @@
+@use "styles/variables";
+.toggle {
+  margin: 10px;
+  min-width: 500px;
+  text-align: center;
+  @include variables.mq(sm) {
+    min-width: 250px;
+  }
+}
