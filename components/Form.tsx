@@ -59,8 +59,8 @@ export const Form = ({
       title: data.title,
       date: targetDate,
       content: data.content,
-      targetId: targetId,
-      registerId: registerId,
+      targetName: targetName,
+      registerName: registerName,
     }
     const result = await registerPost(post)
     setDialog(true)

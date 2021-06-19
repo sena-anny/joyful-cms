@@ -24,8 +24,8 @@ export const PostList = ({
             return (
               <tr key={post.id}>
                 <td data-label="支援実施日">{post.date}</td>
-                <td data-label="支援対象者">{post.targetId}</td>
-                <td data-label="記入者">{post.registerId}</td>
+                <td data-label="支援対象者">{post.targetName}</td>
+                <td data-label="記入者">{post.registerName}</td>
                 <td data-label="支援場面">{post.title}</td>
                 <td data-label="支援内容">{post.content}</td>
                 <td data-label="最終更新日">

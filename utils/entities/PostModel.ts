@@ -5,8 +5,8 @@ export type PostModel = {
   title: string
   date: string
   content: string
-  targetId: string
-  registerId: string
+  targetName: string
+  registerName: string
   createdAt?: number
   updatedAt?: number
 }
@@ -17,8 +17,8 @@ export const buildPost = (data: FirebaseFirestore.DocumentData): PostModel => {
     title: data.title,
     date: data.date,
     content: data.content,
-    targetId: data.targetId,
-    registerId: data.registerId,
+    targetName: data.targetName,
+    registerName: data.registerName,
     createdAt: data.createdAt || null,
     updatedAt: data.updatedAt || null,
   }
@@ -34,8 +34,8 @@ export const buildPostList = (
       title: doc.data().title,
       date: doc.data().date,
       content: doc.data().content,
-      targetId: doc.data().targetId,
-      registerId: doc.data().registerId,
+      targetName: doc.data().targetName,
+      registerName: doc.data().registerName,
       createdAt: doc.data().createdAt || null,
       updatedAt: doc.data().updatedAt || null,
     })

@@ -20,6 +20,7 @@ import { Register } from '@utils/entities/Register'
 import { Target } from '@utils/entities/Target'
 import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react'
 import { PostModel } from '@utils/entities/PostModel'
+import { getPostListByFilter } from '@utils/repositories/fetchDataFromClientSide'
 
 export const Filter = ({
   registerList,
@@ -49,9 +50,13 @@ export const Filter = ({
   const filterFirebase = async (data: IFilterInputs) => {
     // 日付と対象者と入力ユーザーを抽出
     const targetDate = data.datePicker.format('YYYYMMDD')
-    console.log(targetDate, targetsName, registersName)
+    const postList = await getPostListByFilter({
+      date: targetDate,
+      targetNameList: targetsName,
+      registerNameList: registersName,
+    })
 
-    setPostList([])
+    setPostList(postList)
     return
   }
 
@@ -173,7 +178,7 @@ export const Filter = ({
         リセット
       </button>
       <button className={styles.button} type="submit">
-        登録
+        検索
       </button>
     </form>
   )

@@ -20,28 +20,47 @@ export const getPostList = async (): Promise<PostModel[]> => {
 }
 
 type PostFilter = {
-  dates?: string[]
-  targetsId?: string[]
-  registersId?: string[]
+  date: string
+  targetNameList: string[]
+  registerNameList: string[]
 }
 
 export const getPostListByFilter = async ({
-  dates,
-  targetsId,
-  registersId,
+  date,
+  targetNameList,
+  registerNameList,
 }: PostFilter): Promise<PostModel[]> => {
   try {
     const db = firebase.firestore()
     const postsRef = db.collection('posts')
-    const snapshot: firebase.firestore.QuerySnapshot<firebase.firestore.DocumentData> = await postsRef
-      .where('date', 'in', [dates])
-      .where('targetId', 'in', [targetsId])
-      .where('registerId', 'in', [registersId])
-      .get()
+
+    let snapshot: firebase.firestore.QuerySnapshot<firebase.firestore.DocumentData>
+    if (date) {
+      // 特定の日付で絞り込み
+      snapshot = await postsRef.where('date', '==', date).get()
+    } else {
+      // 全件取得
+      snapshot = await postsRef.get()
+    }
+
     if (snapshot.empty) {
       return null
     }
-    return buildPostList(snapshot)
+    let postList = buildPostList(snapshot)
+
+    if (targetNameList.length > 0) {
+      postList = postList.filter((post) =>
+        targetNameList.includes(post.targetName)
+      )
+    }
+
+    if (registerNameList.length > 0) {
+      postList = postList.filter((post) =>
+        registerNameList.includes(post.registerName)
+      )
+    }
+
+    return postList
   } catch (e) {
     // eslint-disable-next-line no-console
     console.log(e)
