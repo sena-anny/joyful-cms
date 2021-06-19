@@ -13,11 +13,14 @@ import {
 import { Register } from '@utils/entities/Register'
 import { Target } from '@utils/entities/Target'
 import { Filter } from '@components/Filter'
+import { Button } from '@material-ui/core'
+import styles from '@components/Title.module.scss'
 
 const List = ({
   data,
 }: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element => {
   const [postList, setPostList] = useState<PostModel[]>([])
+  const [open, setOpen] = useState<boolean>(false)
   useEffect(() => {
     setPostList(data.postList)
   }, [])
@@ -27,11 +30,32 @@ const List = ({
       <Title title={'支援日誌一覧'} />
       <Container>
         <>
-          <Filter
-            registerList={data.registerList}
-            targetList={data.targetList}
-            setPostList={setPostList}
-          />
+          {open ? (
+            <Button
+              className={styles.button}
+              variant="outlined"
+              color="secondary"
+              onClick={() => setOpen(false)}
+            >
+              閉じる
+            </Button>
+          ) : (
+            <Button
+              className={styles.button}
+              variant="outlined"
+              color="primary"
+              onClick={() => setOpen(true)}
+            >
+              詳細検索
+            </Button>
+          )}
+          {open && (
+            <Filter
+              registerList={data.registerList}
+              targetList={data.targetList}
+              setPostList={setPostList}
+            />
+          )}
           {postList && <PostList postList={postList} />}
         </>
       </Container>
