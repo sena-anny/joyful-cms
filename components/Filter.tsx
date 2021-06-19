@@ -49,9 +49,11 @@ export const Filter = ({
 
   const filterFirebase = async (data: IFilterInputs) => {
     // 日付と対象者と入力ユーザーを抽出
-    const targetDate = data.datePicker.format('YYYYMMDD')
+    const startDate = data.startDate.format('YYYYMMDD')
+    const endDate = data.endDate.format('YYYYMMDD')
     const postList = await getPostListByFilter({
-      date: targetDate,
+      startDate: startDate,
+      endDate: endDate,
       targetNameList: targetsName,
       registerNameList: registersName,
     })
@@ -71,17 +73,37 @@ export const Filter = ({
   return (
     <form onSubmit={handleSubmit(filterFirebase)} className={styles.search}>
       <div className={styles.form}>
-        {/*全期間のチェックボックスも用意*/}
         <MuiPickersUtilsProvider utils={MomentUtils}>
           <Controller
-            name="datePicker"
+            name="startDate"
             control={control}
             defaultValue={moment()}
             render={({ field: { onChange, value, name } }) => (
               <KeyboardDatePicker
                 margin="normal"
-                id="date-picker-dialog"
-                label="対象日選択"
+                id="start-date-picker-dialog"
+                label="開始日選択"
+                format="yyyy/MM/DD"
+                KeyboardButtonProps={{
+                  'aria-label': 'change date',
+                }}
+                value={value}
+                onChange={onChange}
+                name={name}
+              />
+            )}
+          />
+        </MuiPickersUtilsProvider>
+        <MuiPickersUtilsProvider utils={MomentUtils}>
+          <Controller
+            name="endDate"
+            control={control}
+            defaultValue={moment()}
+            render={({ field: { onChange, value, name } }) => (
+              <KeyboardDatePicker
+                margin="normal"
+                id="end-date-picker-dialog"
+                label="終了日選択"
                 format="yyyy/MM/DD"
                 KeyboardButtonProps={{
                   'aria-label': 'change date',
@@ -171,7 +193,8 @@ export const Filter = ({
           setRegistersName([])
           setTargetsName([])
           reset({
-            datePicker: moment(),
+            startDate: moment(),
+            endDate: moment(),
           })
         }}
       >

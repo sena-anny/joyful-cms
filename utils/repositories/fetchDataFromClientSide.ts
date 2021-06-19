@@ -20,13 +20,15 @@ export const getPostList = async (): Promise<PostModel[]> => {
 }
 
 type PostFilter = {
-  date: string
+  startDate: string
+  endDate: string
   targetNameList: string[]
   registerNameList: string[]
 }
 
 export const getPostListByFilter = async ({
-  date,
+  startDate,
+  endDate,
   targetNameList,
   registerNameList,
 }: PostFilter): Promise<PostModel[]> => {
@@ -34,14 +36,10 @@ export const getPostListByFilter = async ({
     const db = firebase.firestore()
     const postsRef = db.collection('posts')
 
-    let snapshot: firebase.firestore.QuerySnapshot<firebase.firestore.DocumentData>
-    if (date) {
-      // 特定の日付で絞り込み
-      snapshot = await postsRef.where('date', '==', date).get()
-    } else {
-      // 全件取得
-      snapshot = await postsRef.get()
-    }
+    const snapshot: firebase.firestore.QuerySnapshot<firebase.firestore.DocumentData> = await postsRef
+      .where('date', '>=', startDate)
+      .where('date', '<=', endDate)
+      .get()
 
     if (snapshot.empty) {
       return null

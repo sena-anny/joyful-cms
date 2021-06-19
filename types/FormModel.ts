@@ -12,7 +12,8 @@ export interface ISearchInputs {
 }
 
 export interface IFilterInputs {
-  datePicker: Moment
+  startDate: Moment
+  endDate: Moment
   targetPersons: string[]
   registerPersons: string[]
 }
