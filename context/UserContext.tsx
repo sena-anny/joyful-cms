@@ -17,7 +17,7 @@ type UserContextType = {
   setIsSignedIn: Dispatch<SetStateAction<boolean>>
 }
 
-export const UserContext = createContext<UserContextType>(null)
+const UserContext = createContext<UserContextType>(null)
 
 export default function UserContextComp({
   children,
@@ -31,18 +31,23 @@ export default function UserContextComp({
   useEffect(() => {
     const unsubscribe: firebase.Unsubscribe = firebase
       .auth()
-      .onAuthStateChanged(async (user) => {
+      .onAuthStateChanged((user) => {
         try {
           if (user) {
             // User is signed in.
             const { uid, displayName, email, photoURL } = user
             // You could also look for the user doc in your Firestore (if you have one):
             // const userDoc = await firebase.firestore().doc(`users/${uid}`).get()
-            setIsSignedIn(true)
             setUser({ uid, displayName, email, photoURL } as firebase.UserInfo)
-          } else setUser(null)
+            setIsSignedIn(true)
+          } else {
+            setUser(null)
+            setIsSignedIn(false)
+          }
         } catch (error) {
           // Most probably a connection error. Handle appropriately.
+          console.error('Error at FirebaseAuth')
+          setIsSignedIn(false)
         } finally {
           setLoadingUser(false)
         }

@@ -16,12 +16,12 @@ const uiConfig: firebaseui.auth.Config = {
   ],
 }
 
-export const SignIn = (): JSX.Element => (
-  <Layout>
-    {/* TODO: Headerコンポーネント*/}
-    <Title title={'支援日誌管理ツール'} />
-    {/* TODO:コンテナ化 */}
-    <p>サインインしてください</p>
-    <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
-  </Layout>
-)
+export const SignIn = (): JSX.Element => {
+  return (
+    <Layout>
+      <Title title={'支援日誌管理ツール'} />
+      <p>サインインしてください</p>
+      <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
+    </Layout>
+  )
+}

@@ -2,13 +2,13 @@ import { Title } from '@components/Title'
 import { Container } from '@components/Container'
 import { Layout } from '@components/Layout'
 import { InferGetServerSidePropsType, GetServerSideProps } from 'next'
-import { getPostList } from '@utils/repositories/fetchDataFromClientSide'
 import { PostModel } from '@utils/entities/PostModel'
 import { useEffect, useState } from 'react'
 import { PostList } from '@components/PostList'
 import {
   getRegisterList,
   getTargetList,
+  getPostList,
 } from '@utils/repositories/fetchDataFromServerSide'
 import { Register } from '@utils/entities/Register'
 import { Target } from '@utils/entities/Target'

@@ -1,13 +1,15 @@
 import Image from 'next/image'
 import styles from './Header.module.scss'
 import { useUser } from '../context/UserContext'
+import { logoutApp } from '@utils/firebase/logoutApp'
 
 export const Header = (): JSX.Element => {
   // ログイン判定
-  const { setUser, isSignIn, setIsSignedIn } = useUser()
-  const logoutCMS = (): void => {
-    setUser(null)
+  const { isSignIn, setIsSignedIn } = useUser()
+  const logoutCMS = async (): Promise<void> => {
+    await logoutApp()
     setIsSignedIn(false)
+    return
   }
   return (
     <header className={styles.header}>

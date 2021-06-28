@@ -25,7 +25,9 @@ export const buildPost = (data: FirebaseFirestore.DocumentData): PostModel => {
 }
 
 export const buildPostList = (
-  data: firebase.firestore.QuerySnapshot<firebase.firestore.DocumentData>
+  data:
+    | FirebaseFirestore.QuerySnapshot<FirebaseFirestore.DocumentData>
+    | firebase.firestore.QuerySnapshot<firebase.firestore.DocumentData>
 ): PostModel[] => {
   const posts: PostModel[] = []
   data.forEach((doc) => {

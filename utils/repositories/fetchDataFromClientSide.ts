@@ -3,22 +3,6 @@ import firebase from '@utils/firebase/ClientApp'
 import { buildTarget, Target } from '@utils/entities/Target'
 import { buildRegister, Register } from '@utils/entities/Register'
 
-export const getPostList = async (): Promise<PostModel[]> => {
-  try {
-    const db = firebase.firestore()
-    const postsRef = db.collection('posts')
-    const snapshot: firebase.firestore.QuerySnapshot<firebase.firestore.DocumentData> = await postsRef.get()
-    if (snapshot.empty) {
-      return null
-    }
-    return buildPostList(snapshot)
-  } catch (e) {
-    // eslint-disable-next-line no-console
-    console.log(e)
-    return null
-  }
-}
-
 type PostFilter = {
   startDate: string
   endDate: string
