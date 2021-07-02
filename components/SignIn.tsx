@@ -1,7 +1,7 @@
 import { Layout } from '@components/Layout'
 import { Title } from '@components/Title'
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth'
-import firebase from '../utils/firebase/ClientApp'
+import firebase from '@utils/firebase/ClientApp'
 import 'firebase/auth'
 
 const uiConfig: firebaseui.auth.Config = {

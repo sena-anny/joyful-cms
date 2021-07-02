@@ -7,7 +7,7 @@ import {
   useState,
 } from 'react'
 import firebase from '../utils/firebase/ClientApp'
-import { SignIn } from '../pages/SignIn'
+import { SignIn } from '@components/SignIn'
 
 type UserContextType = {
   user: firebase.UserInfo | null | undefined
