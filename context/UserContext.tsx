@@ -29,6 +29,14 @@ export default function UserContextComp({
   const [loadingUser, setLoadingUser] = useState(true)
 
   useEffect(() => {
+    fetch('/api/ipAuth')
+      .then((res) => {
+        if (res.ok || res.status == 200) {
+          return
+        }
+      })
+      .catch((err) => console.error('エラー発生', err))
+
     const unsubscribe: firebase.Unsubscribe = firebase
       .auth()
       .onAuthStateChanged((user) => {

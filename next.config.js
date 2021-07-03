@@ -2,38 +2,42 @@ module.exports = {
   async rewrites() {
     if (!process.env.VERCEL_ENV) return {}
     return {
-      fallback: [
-        {
-          source: '/posts/:path*',
-          has: [
-            {
-              type: 'header',
-              key: 'x-forwarded-for',
-              value: process.env.ALLOW_IP,
-            },
-          ],
-          destination: '/posts/:path*',
-        },
-        {
-          source: '/users/:path*',
-          has: [
-            {
-              type: 'header',
-              key: 'x-forwarded-for',
-              value: process.env.ALLOW_IP,
-            },
-          ],
-          destination: '/users/:path*',
-        },
-        {
-          source: '/posts/:path*',
-          destination: '/',
-        },
-        {
-          source: '/users/:path*',
-          destination: '/',
-        },
-      ],
+      // beforeFiles: [
+      //   {
+      //     source: '/api/:path*',
+      //     destination: '/api/:path*',
+      //   },
+      //   {
+      //     source: '/posts/:path*',
+      //     has: [
+      //       {
+      //         type: 'cookie',
+      //         key: 'x-custom-authorized',
+      //         value: process.env.AUTH_KEY,
+      //       },
+      //     ],
+      //     destination: '/posts/:path*',
+      //   },
+      //   {
+      //     source: '/users/:path*',
+      //     has: [
+      //       {
+      //         type: 'cookie',
+      //         key: 'x-custom-authorized',
+      //         value: process.env.AUTH_KEY,
+      //       },
+      //     ],
+      //     destination: '/users/:path*',
+      //   },
+      //   {
+      //     source: '/users/:path*',
+      //     destination: '/',
+      //   },
+      //   {
+      //     source: '/posts/:path*',
+      //     destination: '/',
+      //   },
+      // ],
     }
   },
 }
