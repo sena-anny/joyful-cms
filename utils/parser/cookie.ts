@@ -1,12 +1,12 @@
 import { serialize, CookieSerializeOptions } from 'cookie'
-import { NextApiResponse } from 'next'
+import { VercelResponse } from '@vercel/node'
 
 /**
  * This sets `cookie` using the `res` object
  */
 
 export const setCookie = (
-  res: NextApiResponse,
+  res: VercelResponse,
   name: string,
   value: unknown,
   options: CookieSerializeOptions = {}

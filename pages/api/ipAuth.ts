@@ -1,7 +1,7 @@
-import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next'
 import { setCookie } from '@utils/parser/cookie'
+import { VercelRequest, VercelResponse } from '@vercel/node'
 
-const handler: NextApiHandler = (req: NextApiRequest, res: NextApiResponse) => {
+export default (req: VercelRequest, res: VercelResponse) => {
   if (
     process.env.ALLOW_IP &&
     req.headers['x-forwarded-for'].includes(process.env.ALLOW_IP)
@@ -13,8 +13,7 @@ const handler: NextApiHandler = (req: NextApiRequest, res: NextApiResponse) => {
     })
     // Return the `set-cookie` header so we can display it in the browser and show that it works!
     res.end(res.getHeader('Set-Cookie'))
+    return
   }
   res.status(200).json({ message: 'Unauthorized' })
 }
-
-export default handler

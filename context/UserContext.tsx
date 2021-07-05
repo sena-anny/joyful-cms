@@ -30,10 +30,8 @@ export default function UserContextComp({
 
   useEffect(() => {
     fetch('/api/ipAuth')
-      .then((res) => {
-        if (res.ok || res.status == 200) {
-          return
-        }
+      .then(({ ok }) => {
+        return ok
       })
       .catch((err) => console.error('エラー発生', err))
 
