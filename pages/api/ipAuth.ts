@@ -9,7 +9,7 @@ export default (req: VercelRequest, res: VercelResponse) => {
     // Calling our pure function using the `res` object, it will add the `set-cookie` header
     setCookie(res, 'x-custom-authorized', process.env.AUTH_KEY, {
       path: '/',
-      maxAge: 1800, // 30 min
+      maxAge: 1800000, // 30 min
     })
     // Return the `set-cookie` header so we can display it in the browser and show that it works!
     res.end(res.getHeader('Set-Cookie'))
