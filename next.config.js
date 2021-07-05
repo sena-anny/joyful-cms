@@ -30,7 +30,25 @@ module.exports = {
           destination: '/users/:path*',
         },
         {
-          source: '/:path*',
+          source: '/posts/:path*',
+          has: [
+            {
+              type: 'cookie',
+              key: 'x-custom-authorized',
+              value: 'false',
+            },
+          ],
+          destination: '/',
+        },
+        {
+          source: '/users/:path*',
+          has: [
+            {
+              type: 'cookie',
+              key: 'x-custom-authorized',
+              value: 'false',
+            },
+          ],
           destination: '/',
         },
       ],
